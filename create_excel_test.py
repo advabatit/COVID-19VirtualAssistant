@@ -1,7 +1,6 @@
 import xlsxwriter
-from WebScapingCOVID19 import sort_info
 
-def create_excel() -> None:
+def create_excel(questions, answers) -> None:
     """
     Function that creates excel table with all the questions and the answers
     Args:
@@ -9,7 +8,6 @@ def create_excel() -> None:
     Return:
         Nothing
     """
-    questions, answers, last_update = sort_info()
     excel_file = xlsxwriter.Workbook('questions_and_answeres.xlsx')
     wsTransaction = excel_file.add_worksheet('questions_and_answeres')
 
