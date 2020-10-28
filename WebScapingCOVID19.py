@@ -1,9 +1,8 @@
 from bs4 import BeautifulSoup 
 import requests
-import string
+
 
 URL = 'https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/coronavirus-disease-covid-19' 
-
 
 def sort_info():
     """
@@ -16,7 +15,7 @@ def sort_info():
     soup = make_soup()
 
     info = soup.find(id='sf-accordion')
-    unordered_data = str(info.encode('utf-8')).split('div class="sf-accordion__panel">')[1::]
+    unordered_data = str(info.encode('ascii', errors = 'ignore')).split('div class="sf-accordion__panel">')[1::]
 
     temp = []
     questions = []
@@ -124,9 +123,6 @@ def get_answers(answers : list) -> list:
 
         if '\\t' in temp:
             temp = temp.replace('\\t', ' ')
-        
-        printable = set(string.printable)
-        filter(lambda x: x in printable, temp)
 
         final_answers.append(temp)
     
@@ -146,3 +142,4 @@ def get_last_update(soup : BeautifulSoup) -> str:
     last_update = last_update[16:19] + 'of ' + last_update[19::]
     
     return last_update
+
