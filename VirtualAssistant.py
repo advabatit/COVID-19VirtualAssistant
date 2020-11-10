@@ -1,4 +1,8 @@
-import pyttsx3
+#import pyttsx3
+from gtts import gTTS
+import playsound
+import os
+import speech_recognition
 import speech_recognition
 from WebScapingCOVID19 import sort_info
 
@@ -28,6 +32,8 @@ possible_questions = [['what is coronavirus'],
                     ['thank you', 'quit'],
                     ['']]
 
+''' Never judge anyone shortly. Every saint has a past and every sinner has a future. '''
+
 
 def speak(text : str):
     """
@@ -37,10 +43,11 @@ def speak(text : str):
     Return:
         Nothing
     """
-    engine = pyttsx3.init()
-    engine.setProperty("rate", 178)
-    engine.say(text)
-    engine.runAndWait()
+    tts = gTTS(text=text, lang="en")
+    filename = "sample2.mp3"
+    tts.save(filename)
+    playsound.playsound(filename)
+    os.remove(filename)
 
 def get_audio():
     """
